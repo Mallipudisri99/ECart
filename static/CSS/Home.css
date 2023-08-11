@@ -1,0 +1,28 @@
+img{
+    width:120px;
+    height:80px;
+    
+}
+.btn{
+    margin-left:950px;
+}
+#cart-icon{
+    width:30px;
+    height:30px;
+    margin-left:1100px;
+}
+
+marquee{
+   
+    width:100%;
+    animation: 200s slider infinite; 
+    overflow:hidden;
+    
+}
+marquee img{
+    position:relative;
+    float:left;
+    width:200px;;
+    height:200px;
+
+}

@@ -1,0 +1,170 @@
+<!doctype html>
+{% load static %}
+<html lang="en">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <link rel="stylesheet" href="{% static 'CSS/Checkout.css'%}">
+    <link rel="icon" href="{% static 'images/logo.png'  %}" size="18*18">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.2.1/dist/css/bootstrap.min.css" integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
+
+
+    <title>Ecommerce</title>
+  </head>
+  <body class="bg-info">
+    <div class="row">
+      <div class="col-lg-6">
+        <div class="container" id="form-wrapper">
+
+          <form id="form">
+            <div id="user-info">
+              <div class="form-field">
+                <br>
+                <br>
+                <input required class="form-control" type="text" name="name" placeholder="Name..">
+              </div>
+              <br>
+              <div class="form-field">
+                <input required class="form-control" type="email" name="email" placeholder="Email..">
+              </div>
+              
+            </div>
+            <div id="shipping-info">
+              <hr>
+              <p>Shipping Infromation</p>
+              <hr>
+              <div class="form-field">
+                <input class="form-control" type="text" name="address" placeholder="Address..">
+              </div>
+              <br>
+              <div class="form-field">
+                <input class="form-control" type="text" name="city" placeholder="City">
+              </div>
+              <br>
+              <div class="form-field">
+                <input class="form-control" type="text" name="state" placeholder="State">
+              </div>
+              <br>
+              <div class="form-field">
+                <input class="form-control" type="text" name="zipcode" placeholder="Zip code..">
+              </div>
+            </div>
+            <hr>
+            <input id="form-button" class="btn btn-success"type="submit" value="Continue">
+            
+          </form>
+        </div>
+      </div>
+      <br>
+      
+      <div class="container" id="P">
+        <div class="box-element hidden" id="payment-info">
+          <strong>Paypal Options</strong>
+          <button id="make-payment">Make Payment</button>
+
+        </div>
+      </div>
+
+<div class="card">
+<div class="col-lg-6">
+  <div class="box-element">
+    <div class="box-element">
+      <br>
+      <a class="btn btn-outline-dark" href="{% url 'cart1' %}">&#x2190; Back to cart</a>
+      <hr>
+      <h3>Order Summary</h3>
+      <hr>
+      
+        <div class="container">
+          {% for item in items %}
+          <div class="cart-row">
+            <div class="col" id="check-img">
+              <div ><img class="row-image" src="{{item.product.imageURL}}"></div>
+            </div>&nbsp;
+            <div class="col" >
+              <div><p>{{item.product.name}}</p></div>
+          </div>&nbsp;&nbsp;
+          <div class="col" >
+              <div><p>${{item.product.price}}</p></div>
+          </div>
+          <div class="col">
+              <div><p>{{item.quantity}}</p></div>
+          </div>&nbsp;&nbsp;
+          {% endfor %}
+        </div>
+        <hr>
+        <h5>Items:{{order.get_cart_items}}</h5>
+        <h5>Total:${{order.get_cart_total}}</h5>
+    </div>
+  
+</div>
+</div>
+<script type="'text/javascript">
+  var user='{{request.user}}'
+
+  function getToken(name) {
+      var cookieValue = null;
+      if(document.cookie && document.cookie !== '') {
+          var cookies =( document.cookie.split(';'));
+          for(var i=0; i < cookies.length; i++) {
+              var cookie=cookies[i].trim();
+              // Does this cookie string begin with the name we want?
+              if(cookie.substring(0,name.length + 1) === (name + '=')) 
+              {
+                  cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                  break;
+              }
+          }
+      }
+      return cookieValue;
+  }
+  var csrftoken = getToken('csrftoken');
+
+
+
+
+
+
+
+
+
+
+
+
+  var shipping = '{{order.shipping}}'
+
+  if(shipping == 'False'){
+    document.getElementById('shipping-info').innerHTML = ''
+  }
+
+  var form =document.getElementById('form')
+  form.addEventListener('submit',function(e){
+    e.preventDefault()
+    console.log('Form submitted...')
+    document.getElementById('form-button').classList.add("hidden");
+    document.getElementById('payment-info').classList.remove("hidden");
+
+  })
+
+  document.getElementById('make-payment').addEventListener('click', function(e){
+    submitFormData()
+  })
+  function submitFormData(){
+    console.log("Payment button clicked")
+  }
+</script>
+   
+
+    <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.14.6/dist/umd/popper.min.js" integrity="sha384-wHAiFfRlMFy6i5SRaxvfOCifBUQy1xHdJ/yoi7FRNXMRBu5WHdZYu1hA6ZOblgut" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.2.1/dist/js/bootstrap.min.js" integrity="sha384-B0UglyR+jN6CkvvICOB2joaf5I4l3gm9GU6Hc1og6Ls7i6U/mkkaduKaBhlAXv9k" crossorigin="anonymous"></script>
+    <script type="text/JavaScript" src="{% static 'js/cart.js' %}"></script>
+    
+  </body>
+</html>

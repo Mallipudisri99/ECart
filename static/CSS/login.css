@@ -1,0 +1,23 @@
+img{
+    width:120px;
+    height:80px;
+    
+}
+.btn{
+    margin-left:950px;
+}
+#cart-icon{
+    width:30px;
+    height:30px;
+    margin-left:1100px;
+}
+.input-group {
+    padding-top: 30px;
+    padding-left: 400px;
+}
+.btn1{
+    margin-left: 500px;
+    width:100px;
+    border-radius: 8px;
+
+}
